@@ -5,6 +5,7 @@ A simple Android Library for Using Tags on Ui with Custom Texts having Many shap
 Step 1. Add the JitPack repository to your build file
 Add it in your root build.gradle at the end of repositories:
 
+```
 allprojects {
 		repositories {
 			...
@@ -16,3 +17,4 @@ allprojects {
   	dependencies {
 	        implementation 'com.github.Nadeembhat:AndroidTags:Tag'
 	}
+```

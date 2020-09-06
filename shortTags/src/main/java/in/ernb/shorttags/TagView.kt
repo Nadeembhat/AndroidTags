@@ -18,7 +18,6 @@ import `in`.ernb.shorttags.Tags.SHARP
 import `in`.ernb.shorttags.Tags.SHARP_TAG_MULTIPLIER
 import `in`.ernb.shorttags.Tags.TEXT_COLOR_DEFAULT
 import `in`.ernb.shorttags.Tags.TOP_PADDING_DEFAULT
-import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
@@ -38,8 +37,11 @@ import androidx.appcompat.widget.AppCompatTextView
  * ShortTags
  */
 
-class TagView(context: Context, attrs: AttributeSet?) : AppCompatTextView(context, attrs) {
-    inner class TagViewData {
+class TagView(context: Context,attributeSet: AttributeSet) : AppCompatTextView(context) {
+
+
+
+    class TagViewData {
         // TagView properties
         var tagType = 0
         var tagColor = 0
@@ -59,11 +61,34 @@ class TagView(context: Context, attrs: AttributeSet?) : AppCompatTextView(contex
         var trianglePaint: Paint? = null
     }
 
-    private val data: TagViewData
+    private var data: TagViewData
+    init {
+        val typedArray = context.theme.obtainStyledAttributes(attributeSet, R.styleable.TagView, 0, 0)
+        data = TagViewData()
+        try {
+            data!!.tagType = typedArray.getInteger(R.styleable.TagView_tagType, CLASSIC)
+            data!!.tagColor = typedArray.getColor(R.styleable.TagView_tagColor, Color.BLACK)
+            data!!.tagUpperCase = typedArray.getBoolean(R.styleable.TagView_tagUpperCase, false)
+            data!!.tagBorderRadius =
+                typedArray.getInteger(R.styleable.TagView_tagBorderRadius, BORDER_RADIUS_DEFAULT)
+                    .toFloat()
+            data!!.tagCircleRadius =
+                typedArray.getInteger(R.styleable.TagView_tagCircleRadius, CIRCLE_RADIUS_DEFAULT)
+                    .toFloat()
+            data!!.tagCircleColor =
+                typedArray.getColor(R.styleable.TagView_tagCircleColor, CIRCLE_COLOR_DEFAULT)
+            data!!.tagTextColor =
+                typedArray.getColor(R.styleable.TagView_tagTextColor, TEXT_COLOR_DEFAULT)
+        } finally {
+            typedArray.recycle()
+        }
+        initPadding()
+        init()
+    }
 
     private inner class TagDrawable : Drawable() {
+        val no: Int = 0
         override fun setAlpha(alpha: Int) {}
-
         override fun draw(canvas: Canvas) {
             val bounds = bounds
             if (data.tagType == CLASSIC) {
@@ -113,11 +138,13 @@ class TagView(context: Context, attrs: AttributeSet?) : AppCompatTextView(contex
         }
 
         override fun setColorFilter(colorFilter: ColorFilter?) {}
-        @SuppressLint("WrongConstant")
         override fun getOpacity(): Int {
-            return 0
+            return no
         }
     }
+
+
+
 
     public override fun onDraw(canvas: Canvas) {
         if (data.tagUpperCase) text = text.toString().toUpperCase()
@@ -158,90 +185,8 @@ class TagView(context: Context, attrs: AttributeSet?) : AppCompatTextView(contex
             bottom
     }
 
-    var tagType: Int
-        get() = data.tagType
-        set(tagType) {
-            data.tagType = tagType
-            invalidate()
-            requestLayout()
-        }
-    var tagColor: Int
-        get() = data.tagColor
-        set(tagColor) {
-            data.tagColor = tagColor
-            init()
-            invalidate()
-            requestLayout()
-        }
-    var isTagUpperCase: Boolean
-        get() = data.tagUpperCase
-        set(tagUpperCase) {
-            data.tagUpperCase = tagUpperCase
-            invalidate()
-            requestLayout()
-        }
-    val tagBorderRadius: Float
-        get() = data.tagBorderRadius
-
-    fun setTagBorderRadius(tagBorderRadius: Int) {
-        data.tagBorderRadius = tagBorderRadius.toFloat()
-        invalidate()
-        requestLayout()
-    }
-
-    var tagCircleRadius: Float
-        get() = data.tagCircleRadius
-        set(tagCircleRadius) {
-            data.tagCircleRadius = tagCircleRadius
-            invalidate()
-            requestLayout()
-        }
-    var tagCircleColor: Int
-        get() = data.tagCircleColor
-        set(tagCircleColor) {
-            data.tagCircleColor = tagCircleColor
-            init()
-            invalidate()
-            requestLayout()
-        }
-    var tagTextColor: Int
-        get() = data.tagTextColor
-        set(tagTextColor) {
-            data.tagTextColor = tagTextColor
-            invalidate()
-            requestLayout()
-        }
-    var tagLeftPadding: Int
-        get() = data.tagLeftPadding
-        set(tagLeftPadding) {
-            data.tagLeftPadding = tagLeftPadding
-            invalidate()
-            requestLayout()
-        }
-    var tagRightPadding: Int
-        get() = data.tagRightPadding
-        set(tagRightPadding) {
-            data.tagRightPadding = tagRightPadding
-            invalidate()
-            requestLayout()
-        }
-    var tagTopPadding: Int
-        get() = data.tagTopPadding
-        set(tagTopPadding) {
-            data.tagTopPadding = tagTopPadding
-            invalidate()
-            requestLayout()
-        }
-    var tagBottomPadding: Int
-        get() = data.tagBottomPadding
-        set(tagBottomPadding) {
-            data.tagBottomPadding = tagBottomPadding
-            invalidate()
-            requestLayout()
-        }
-
     init {
-        val typedArray = context.theme.obtainStyledAttributes(attrs, R.styleable.TagView, 0, 0)
+        val typedArray = context.theme.obtainStyledAttributes(attributeSet, R.styleable.TagView, 0, 0)
         data = TagViewData()
         try {
             data.tagType = typedArray.getInteger(R.styleable.TagView_tagType, CLASSIC)
@@ -262,5 +207,116 @@ class TagView(context: Context, attrs: AttributeSet?) : AppCompatTextView(contex
         }
         initPadding()
         init()
+    }
+    fun getTagType(): Int {
+        return data!!.tagType
+    }
+
+    fun setTagType(tagType: Int) {
+        data!!.tagType = tagType
+        invalidate()
+        requestLayout()
+    }
+
+    fun getTagColor(): Int {
+        return data!!.tagColor
+    }
+
+    fun setTagColor(tagColor: Int) {
+        data!!.tagColor = tagColor
+        init()
+        invalidate()
+        requestLayout()
+    }
+
+    fun isTagUpperCase(): Boolean {
+        return data!!.tagUpperCase
+    }
+
+    fun setTagUpperCase(tagUpperCase: Boolean) {
+        data!!.tagUpperCase = tagUpperCase
+        invalidate()
+        requestLayout()
+    }
+
+    fun getTagBorderRadius(): Float {
+        return data!!.tagBorderRadius
+    }
+
+    fun setTagBorderRadius(tagBorderRadius: Int) {
+        data!!.tagBorderRadius = tagBorderRadius.toFloat()
+        invalidate()
+        requestLayout()
+    }
+
+    fun getTagCircleRadius(): Float {
+        return data!!.tagCircleRadius
+    }
+
+    fun setTagCircleRadius(tagCircleRadius: Float) {
+        data!!.tagCircleRadius = tagCircleRadius
+        invalidate()
+        requestLayout()
+    }
+
+    fun getTagCircleColor(): Int {
+        return data!!.tagCircleColor
+    }
+
+    fun setTagCircleColor(tagCircleColor: Int) {
+        data!!.tagCircleColor = tagCircleColor
+        init()
+        invalidate()
+        requestLayout()
+    }
+
+    fun getTagTextColor(): Int {
+        return data!!.tagTextColor
+    }
+
+    fun setTagTextColor(tagTextColor: Int) {
+        data!!.tagTextColor = tagTextColor
+        invalidate()
+        requestLayout()
+    }
+
+    fun getTagLeftPadding(): Int {
+        return data!!.tagLeftPadding
+    }
+
+    fun setTagLeftPadding(tagLeftPadding: Int) {
+        data!!.tagLeftPadding = tagLeftPadding
+        invalidate()
+        requestLayout()
+    }
+
+    fun getTagRightPadding(): Int {
+        return data!!.tagRightPadding
+    }
+
+    fun setTagRightPadding(tagRightPadding: Int) {
+        data!!.tagRightPadding = tagRightPadding
+        invalidate()
+        requestLayout()
+    }
+
+    fun getTagTopPadding(): Int {
+        return data!!.tagTopPadding
+    }
+
+    fun setTagTopPadding(tagTopPadding: Int) {
+        data!!.tagTopPadding = tagTopPadding
+        invalidate()
+        requestLayout()
+    }
+
+    fun getTagBottomPadding(): Int {
+        return data!!.tagBottomPadding
+    }
+
+    fun setTagBottomPadding(tagBottomPadding: Int) {
+        data!!.tagBottomPadding = tagBottomPadding
+        invalidate()
+        requestLayout()
     }
 }

@@ -22,7 +22,7 @@ object Utils {
      * @param rect
      * @return
      */
-    fun toRectF(rect: Rect): RectF? {
+    fun toRectF(rect: Rect): RectF {
         return RectF(rect.left.toFloat(), rect.top.toFloat(), rect.right.toFloat(),
             rect.bottom.toFloat()
         )

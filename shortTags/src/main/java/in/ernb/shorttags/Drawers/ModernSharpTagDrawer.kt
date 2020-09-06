@@ -28,6 +28,6 @@ class ModernSharpTagDrawer : SharpTagDrawer() {
         data.circlePaint?.let { canvas.drawCircle(xPos, yPos, data.tagCircleRadius, it) }
         val halfOfRectHeight = (rect.bottom - rect.top) / 2
         val trianglePath = createTrianglePath(data, rect, halfOfRectHeight)
-        data.trianglePaint?.let { canvas.drawPath(trianglePath!!, it) }
+        data.trianglePaint?.let { canvas.drawPath(trianglePath, it) }
     }
 }

@@ -1,4 +1,5 @@
 # AndroidTags
+
 A simple Android Library for Using Tags on Ui with Custom Texts having Many shapes
 
 # For Installation
@@ -7,17 +8,20 @@ A simple Android Library for Using Tags on Ui with Custom Texts having Many shap
 ```
 Add it in your root build.gradle at the end of repositories:
 
-allprojects {
-		repositories {
+allprojects 
+{
+		repositories 
+		{
 			...
 			maven { url 'https://jitpack.io' }
 		}
-	}
+}
 ```
   
   # Step 2. Add the dependency
   ```
-  	dependencies {
-	        implementation 'com.github.Nadeembhat:AndroidTags:Tag'
+  	dependencies 
+	{
+	        implementation 'com.github.Nadeembhat:AndroidTags:1.0.0'
 	}
 ```

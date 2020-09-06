@@ -63,3 +63,8 @@ allprojects
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 ```
+The Default Tag Values for Above tags are:
+1.left - 15dp
+2.right - 15dp
+3.top - 10dp
+4.bottom - 10dp

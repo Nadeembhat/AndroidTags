@@ -1,8 +1,8 @@
-# AndroidTags
+## AndroidTags
 
 A simple Android Library for Using Tags on Ui with Custom Texts having Many shapes
 
-For Installation
+###### For Installation
 
 Step 1. Add the JitPack repository to your build file
 
@@ -28,7 +28,7 @@ allprojects
 	}
 ```
 
-Usage Inside Your Layout
+###### Usage Inside Your Layout
 
 ```
 <?xml version="1.0" encoding="utf-8"?>
@@ -67,7 +67,7 @@ Usage Inside Your Layout
 </androidx.constraintlayout.widget.ConstraintLayout>
 ```
 
-The Default Tag Values for Above tags are:
+###### The Default Tag Values for Above tags are:
 
 ```
 1.left - 15dp
@@ -76,7 +76,7 @@ The Default Tag Values for Above tags are:
 4.bottom - 10dp
 ```
 
-LICENCE
+###### LICENCE
 
 ```
 MIT License

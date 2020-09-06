@@ -3,10 +3,12 @@
 A simple Android Library for Using Tags on Ui with Custom Texts having Many shapes
 
 For Installation
+
 Step 1. Add the JitPack repository to your build file
-```
+
 Add it in your root build.gradle at the end of repositories:
 
+```
 allprojects 
 {
 		repositories 
@@ -18,6 +20,7 @@ allprojects
 ```
   
  Step 2. Add the dependency
+ 
   ```
   	dependencies 
 	{
@@ -26,6 +29,7 @@ allprojects
 ```
 
 Usage Inside Your Layout
+
 ```
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -62,7 +66,9 @@ Usage Inside Your Layout
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 ```
+
 The Default Tag Values for Above tags are:
+
 ```
 1.left - 15dp
 2.right - 15dp
@@ -71,6 +77,7 @@ The Default Tag Values for Above tags are:
 ```
 
 LICENCE
+
 ```
 MIT License
 
